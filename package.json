@@ -1,0 +1,19 @@
+{
+  "name": "mytask",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lit": "^3.2.1",
+    "@lit/context": "^1.1.5",
+    "@vaadin/router": "^2.0.0"
+  },
+  "devDependencies": {
+    "vite": "^6.3.1"
+  }
+}
