@@ -6,14 +6,22 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "npm run test:dev && npm run test:prod",
+    "test:dev": "wtr",
+    "test:watch": "wtr --watch",
+    "test:prod": "MODE=prod wtr",
+    "test:coverage": "wtr test/**/*.test.js --coverage"
   },
   "dependencies": {
-    "lit": "^3.2.1",
     "@lit/context": "^1.1.5",
-    "@vaadin/router": "^2.0.0"
+    "@vaadin/router": "^2.0.0",
+    "lit": "^3.2.1"
   },
   "devDependencies": {
+    "@web/dev-server-legacy": "^2.1.1",
+    "@web/test-runner": "^0.20.1",
+    "@open-wc/testing": "^4.0.0",
     "vite": "^6.3.1"
   }
 }
