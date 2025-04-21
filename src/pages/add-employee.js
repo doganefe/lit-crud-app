@@ -1,8 +1,9 @@
-import {LitElement, html, css} from 'lit';
-import {employeeStore} from '../constants/store';
-import {localization} from '../constants/localization';
-import {validateField, validateForm} from '../utils/validation';
-import {Router} from '@vaadin/router';
+import { LitElement, html, css } from "lit";
+import { localization } from "../constants/localization";
+import { employeeStore } from "../constants/store";
+import { Router } from "@vaadin/router";
+import { validateField, validateForm } from "../utils/validation";
+import { departments } from "../constants";
 
 export class AddEmployeeElement extends LitElement {
   static get styles() {
@@ -24,7 +25,7 @@ export class AddEmployeeElement extends LitElement {
       label {
         display: flex;
         flex-direction: column;
-        font-family: 'Arial', sans-serif;
+        font-family: "Arial", sans-serif;
         font-size: 13px;
         color: #333;
         margin-bottom: 2px;
@@ -95,8 +96,8 @@ export class AddEmployeeElement extends LitElement {
 
   static get properties() {
     return {
-      errors: {type: Object},
-      lang: {type: String},
+      errors: { type: Object },
+      lang: { type: String },
     };
   }
 
@@ -123,22 +124,22 @@ export class AddEmployeeElement extends LitElement {
   }
 
   handleInput(e) {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     const isValid = validateField(name, value);
 
     if (!isValid) {
-      e.target.classList.add('error');
-      this.errors = {...this.errors, [name]: true};
+      e.target.classList.add("error");
+      this.errors = { ...this.errors, [name]: true };
     } else {
-      e.target.classList.remove('error');
-      this.errors = {...this.errors, [name]: false};
+      e.target.classList.remove("error");
+      this.errors = { ...this.errors, [name]: false };
     }
     this.requestUpdate();
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const form = this.shadowRoot.querySelector('form');
+    const form = this.shadowRoot.querySelector("form");
     const data = Object.fromEntries(new FormData(form).entries());
 
     const errors = validateForm(data, localization);
@@ -150,7 +151,7 @@ export class AddEmployeeElement extends LitElement {
     if (isValid) {
       employeeStore.addEmployee(data);
       form.reset();
-      Router.go('/');
+      Router.go("/");
     }
   }
 
@@ -158,37 +159,37 @@ export class AddEmployeeElement extends LitElement {
     return html`
       <form @submit="${this.handleSubmit}">
         <label>
-          ${localization.t('addEmployee.firstName')}
+          ${localization.t("addEmployee.firstName")}
           <input
             name="firstName"
             id="firstName"
             required
             @input="${this.handleInput}"
             pattern="[A-Za-zğüşıöçĞÜŞİÖÇ]{2,50}"
-            title="${localization.t('addEmployee.firstNameError')}"
+            title="${localization.t("addEmployee.firstNameError")}"
           />
-          <span class="error-message ${this.errors.firstName ? 'show' : ''}">
-            ${localization.t('addEmployee.firstNameError')}
+          <span class="error-message ${this.errors.firstName ? "show" : ""}">
+            ${localization.t("addEmployee.firstNameError")}
           </span>
         </label>
 
         <label>
-          ${localization.t('addEmployee.lastName')}
+          ${localization.t("addEmployee.lastName")}
           <input
             name="lastName"
             id="lastName"
             required
             @input="${this.handleInput}"
             pattern="[A-Za-zğüşıöçĞÜŞİÖÇ]{2,50}"
-            title="${localization.t('addEmployee.lastNameError')}"
+            title="${localization.t("addEmployee.lastNameError")}"
           />
-          <span class="error-message ${this.errors.lastName ? 'show' : ''}">
-            ${localization.t('addEmployee.lastNameError')}
+          <span class="error-message ${this.errors.lastName ? "show" : ""}">
+            ${localization.t("addEmployee.lastNameError")}
           </span>
         </label>
 
         <label>
-          ${localization.t('addEmployee.employmentDate')}
+          ${localization.t("addEmployee.employmentDate")}
           <input
             type="date"
             name="employmentDate"
@@ -196,42 +197,42 @@ export class AddEmployeeElement extends LitElement {
             @input="${this.handleInput}"
           />
           <span
-            class="error-message ${this.errors.employmentDate ? 'show' : ''}"
+            class="error-message ${this.errors.employmentDate ? "show" : ""}"
           >
-            ${localization.t('addEmployee.employmentDateError')}
+            ${localization.t("addEmployee.employmentDateError")}
           </span>
         </label>
 
         <label>
-          ${localization.t('addEmployee.birthDate')}
+          ${localization.t("addEmployee.birthDate")}
           <input
             type="date"
             name="birthDate"
             id="birthDate"
             @input="${this.handleInput}"
           />
-          <span class="error-message ${this.errors.birthDate ? 'show' : ''}">
-            ${localization.t('addEmployee.birthDateError')}
+          <span class="error-message ${this.errors.birthDate ? "show" : ""}">
+            ${localization.t("addEmployee.birthDateError")}
           </span>
         </label>
 
         <label>
-          ${localization.t('addEmployee.phoneNumber')}
+          ${localization.t("addEmployee.phoneNumber")}
           <input
             type="tel"
             name="phoneNumber"
             id="phoneNumber"
             required
             @input="${this.handleInput}"
-            title="${localization.t('addEmployee.phoneNumberError')}"
+            title="${localization.t("addEmployee.phoneNumberError")}"
           />
-          <span class="error-message ${this.errors.phoneNumber ? 'show' : ''}">
-            ${localization.t('addEmployee.phoneNumberError')}
+          <span class="error-message ${this.errors.phoneNumber ? "show" : ""}">
+            ${localization.t("addEmployee.phoneNumberError")}
           </span>
         </label>
 
         <label>
-          ${localization.t('addEmployee.email')}
+          ${localization.t("addEmployee.email")}
           <input
             type="email"
             name="email"
@@ -239,30 +240,31 @@ export class AddEmployeeElement extends LitElement {
             required
             @input="${this.handleInput}"
             pattern="[^s@]+@[^s@]+.[^s@]+"
-            title="${localization.t('addEmployee.emailError')}"
+            title="${localization.t("addEmployee.emailError")}"
           />
-          <span class="error-message ${this.errors.email ? 'show' : ''}">
-            ${localization.t('addEmployee.emailError')}
+          <span class="error-message ${this.errors.email ? "show" : ""}">
+            ${localization.t("addEmployee.emailError")}
           </span>
         </label>
 
         <label>
-          ${localization.t('addEmployee.department')}
-          <select name="department" id="department">
-            <option value="Analytics">
-              ${localization.t('addEmployee.selectDepartment')}
+          ${localization.t("addEmployee.department")}
+          <select name="department" id="department" required>
+            <option value="">
+              ${localization.t("addEmployee.selectDepartment")}
             </option>
-            <option value="Analytics">Analytics</option>
-            <option value="Tech">Tech</option>
+            ${departments.map(
+              (dept) => html`<option value=${dept}>${dept}</option>`
+            )}
           </select>
         </label>
 
         <button type="submit" id="submit-btn">
-          ${localization.t('addEmployee.createEmployee')}
+          ${localization.t("addEmployee.createEmployee")}
         </button>
       </form>
     `;
   }
 }
 
-window.customElements.define('add-employee', AddEmployeeElement);
+window.customElements.define("add-employee", AddEmployeeElement);

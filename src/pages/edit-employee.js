@@ -1,8 +1,9 @@
-import {LitElement, html, css} from 'lit';
-import {employeeStore} from '../constants/store';
-import {localization} from '../constants/localization';
-import {validateForm} from '../utils/validation';
-import {Router} from '@vaadin/router';
+import { LitElement, html, css } from "lit";
+import { localization } from "../constants/localization";
+import { employeeStore } from "../constants/store";
+import { validateForm } from "../utils/validation";
+import { Router } from "@vaadin/router";
+import { departments } from "../constants";
 
 export class EditEmployeeElement extends LitElement {
   static get styles() {
@@ -24,7 +25,7 @@ export class EditEmployeeElement extends LitElement {
       label {
         display: flex;
         flex-direction: column;
-        font-family: 'Arial', sans-serif;
+        font-family: "Arial", sans-serif;
         font-size: 13px;
         color: #333;
         margin-bottom: 2px;
@@ -111,10 +112,9 @@ export class EditEmployeeElement extends LitElement {
 
   static get properties() {
     return {
-      employee: {type: Object},
-      errors: {type: Object},
-      departments: {type: Array},
-      lang: {type: String},
+      employee: { type: Object },
+      errors: { type: Object },
+      lang: { type: String },
     };
   }
 
@@ -122,22 +122,20 @@ export class EditEmployeeElement extends LitElement {
     super();
     this.employee = {};
     this.errors = {};
-    this.departments = ['Tech', 'HR', 'Finance', 'Marketing', 'Operations'];
     this.lang = localization.currentLang;
     this._handleLangChanged = this._handleLangChanged.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
-    const employeeId = new URLSearchParams(window.location.search).get('id');
-    const employee = employeeStore.employees.find(
-      (emp) => emp.id === employeeId
-    );
+    const employee = this._getEmployeeFromUrl();
+
     if (employee) {
-      this.employee = {...employee};
+      this.employee = { ...employee };
     } else {
-      Router.go('/');
+      Router.go("/");
     }
+
     localization.addListener(this._handleLangChanged);
   }
 
@@ -146,15 +144,20 @@ export class EditEmployeeElement extends LitElement {
     localization.removeListener(this._handleLangChanged);
   }
 
+  _getEmployeeFromUrl() {
+    const employeeId = new URLSearchParams(window.location.search).get("id");
+    return employeeStore.employees.find((emp) => emp.id === employeeId);
+  }
+
   _handleLangChanged(lang) {
     this.lang = lang;
     this.requestUpdate();
   }
 
   handleInputChange(e) {
-    const {name, value} = e.target;
-    this.employee = {...this.employee, [name]: value};
-    this.errors = {...this.errors, [name]: ''};
+    const { name, value } = e.target;
+    this.employee = { ...this.employee, [name]: value };
+    this.errors = { ...this.errors, [name]: "" };
     this.requestUpdate();
   }
 
@@ -163,96 +166,91 @@ export class EditEmployeeElement extends LitElement {
     const errors = validateForm(this.employee, localization);
     this.errors = errors;
 
-    console.log('Errors:', errors); // Debugging line
-
     const isValid = Object.keys(errors).length === 0;
 
     if (isValid) {
       employeeStore.updateEmployee(this.employee);
-      Router.go('/');
+      Router.go("/");
     }
   }
 
   handleCancel() {
-    Router.go('/');
+    Router.go("/");
   }
 
   render() {
     return html`
       <form @submit=${this.handleSubmit}>
         <label>
-          ${localization.t('editEmployee.firstName')}
+          ${localization.t("editEmployee.firstName")}
           <input
             type="text"
             id="firstName"
             name="firstName"
-            .value=${this.employee.firstName || ''}
+            .value=${this.employee.firstName || ""}
             @input=${this.handleInputChange}
             required
           />
-          <span class="error-message ${this.errors.firstName ? 'show' : ''}">
+          <span class="error-message ${this.errors.firstName ? "show" : ""}">
             ${this.errors.firstName}
           </span>
         </label>
 
         <label>
-          ${localization.t('editEmployee.lastName')}
+          ${localization.t("editEmployee.lastName")}
           <input
             type="text"
             id="lastName"
             name="lastName"
-            .value=${this.employee.lastName || ''}
+            .value=${this.employee.lastName || ""}
             @input=${this.handleInputChange}
             required
           />
-          <span class="error-message ${this.errors.lastName ? 'show' : ''}">
+          <span class="error-message ${this.errors.lastName ? "show" : ""}">
             ${this.errors.lastName}
           </span>
         </label>
 
         <label>
-          ${localization.t('editEmployee.email')}
+          ${localization.t("editEmployee.email")}
           <input
             type="email"
             name="email"
             id="email"
-            .value=${this.employee.email || ''}
+            .value=${this.employee.email || ""}
             @input=${this.handleInputChange}
             required
           />
-          <span class="error-message ${this.errors.email ? 'show' : ''}">
+          <span class="error-message ${this.errors.email ? "show" : ""}">
             ${this.errors.email}
           </span>
         </label>
 
         <label>
-          ${localization.t('editEmployee.phoneNumber')}
+          ${localization.t("editEmployee.phoneNumber")}
           <input
             type="tel"
             name="phoneNumber"
             id="phoneNumber"
-            .value=${this.employee.phoneNumber || ''}
+            .value=${this.employee.phoneNumber || ""}
             @input=${this.handleInputChange}
             required
           />
-          <span class="error-message ${this.errors.phoneNumber ? 'show' : ''}">
+          <span class="error-message ${this.errors.phoneNumber ? "show" : ""}">
             ${this.errors.phoneNumber}
           </span>
         </label>
 
         <label>
-          ${localization.t('editEmployee.department')}
+          ${localization.t("editEmployee.department")}
           <select
             id="department"
             name="department"
-            .value=${this.employee.department || ''}
+            .value=${this.employee.department || ""}
             @change=${this.handleInputChange}
             required
           >
-            <option value="">
-              ${localization.t('editEmployee.selectDepartment')}
-            </option>
-            ${this.departments.map(
+            ${departments.map(
               (dept) =>
                 html`<option
                   value=${dept}
@@ -262,21 +260,21 @@ export class EditEmployeeElement extends LitElement {
                 </option>`
             )}
           </select>
-          <span class="error-message ${this.errors.department ? 'show' : ''}">
+          <span class="error-message ${this.errors.department ? "show" : ""}">
             ${this.errors.department}
           </span>
         </label>
 
         <div class="button-group">
           <button type="submit" id="submit-btn" class="save-button">
-            ${localization.t('editEmployee.save')}
+            ${localization.t("editEmployee.save")}
           </button>
           <button
             type="button"
             class="cancel-button"
             @click=${this.handleCancel}
           >
-            ${localization.t('editEmployee.cancel')}
+            ${localization.t("editEmployee.cancel")}
           </button>
         </div>
       </form>
@@ -284,4 +282,4 @@ export class EditEmployeeElement extends LitElement {
   }
 }
 
-window.customElements.define('edit-employee', EditEmployeeElement);
+window.customElements.define("edit-employee", EditEmployeeElement);
