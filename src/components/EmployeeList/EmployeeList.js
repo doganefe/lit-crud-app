@@ -1,8 +1,12 @@
-import {LitElement, html, css} from 'lit';
-import {employeeStore} from '../../constants/store';
-import {localization} from '../../constants/localization';
-import {paginate, getTotalPages, getPageNumbers} from '../../utils/pagination';
-import {Router} from '@vaadin/router';
+import { LitElement, html, css } from "lit";
+import { employeeStore } from "../../store";
+import { localization } from "../../utils/localization";
+import {
+  paginate,
+  getTotalPages,
+  getPageNumbers,
+} from "../../utils/pagination";
+import { Router } from "@vaadin/router";
 
 export class EmployeeListElement extends LitElement {
   static get styles() {
@@ -11,7 +15,7 @@ export class EmployeeListElement extends LitElement {
         display: block;
         --ing-orange: #fe6c10;
         background-color: #ffffff;
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
       }
 
       .list-container {
@@ -196,10 +200,10 @@ export class EmployeeListElement extends LitElement {
 
   static get properties() {
     return {
-      currentPage: {type: Number},
-      employees: {type: Array},
-      lang: {type: String},
-      displayMode: {type: String, reflect: true},
+      currentPage: { type: Number },
+      employees: { type: Array },
+      lang: { type: String },
+      displayMode: { type: String, reflect: true },
     };
   }
 
@@ -249,14 +253,14 @@ export class EmployeeListElement extends LitElement {
             name="edit-btn"
             class="icon-button edit-button"
             @click=${() => this._handleEdit(row)}
-            title="${localization.t('employeeList.edit')}"
+            title="${localization.t("employeeList.edit")}"
           >
             ✏️
           </button>
           <button
             class="icon-button delete-button"
             @click=${() => this._handleDelete(row)}
-            title="${localization.t('employeeList.delete')}"
+            title="${localization.t("employeeList.delete")}"
           >
             🗑️
           </button>
@@ -276,14 +280,14 @@ export class EmployeeListElement extends LitElement {
             <button
               class="icon-button edit-button"
               @click=${() => this._handleEdit(employee)}
-              title="${localization.t('employeeList.edit')}"
+              title="${localization.t("employeeList.edit")}"
             >
               ✏️
             </button>
             <button
               class="icon-button delete-button"
               @click=${() => this._handleDelete(employee)}
-              title="${localization.t('employeeList.delete')}"
+              title="${localization.t("employeeList.delete")}"
             >
               🗑️
             </button>
@@ -292,31 +296,31 @@ export class EmployeeListElement extends LitElement {
         <div class="list-item-details">
           <div>
             <div class="list-item-label">
-              ${localization.t('employeeList.employmentDate')}
+              ${localization.t("employeeList.employmentDate")}
             </div>
             <div class="list-item-value">${employee.employmentDate}</div>
           </div>
           <div>
             <div class="list-item-label">
-              ${localization.t('employeeList.birthDate')}
+              ${localization.t("employeeList.birthDate")}
             </div>
             <div class="list-item-value">${employee.birthDate}</div>
           </div>
           <div>
             <div class="list-item-label">
-              ${localization.t('employeeList.phone')}
+              ${localization.t("employeeList.phone")}
             </div>
             <div class="list-item-value">${employee.phoneNumber}</div>
           </div>
           <div>
             <div class="list-item-label">
-              ${localization.t('employeeList.email')}
+              ${localization.t("employeeList.email")}
             </div>
             <div class="list-item-value">${employee.email}</div>
           </div>
           <div>
             <div class="list-item-label">
-              ${localization.t('employeeList.department')}
+              ${localization.t("employeeList.department")}
             </div>
             <div class="list-item-value">${employee.department}</div>
           </div>
@@ -327,13 +331,13 @@ export class EmployeeListElement extends LitElement {
 
   _handleEdit(employee) {
     Router.go({
-      pathname: '/edit-employee',
-      search: '?id=' + employee.id,
+      pathname: "/edit-employee",
+      search: "?id=" + employee.id,
     });
   }
 
   _handleDelete(employee) {
-    if (confirm(localization.t('employeeList.deleteConfirm'))) {
+    if (confirm(localization.t("employeeList.deleteConfirm"))) {
       employeeStore.deleteEmployee(employee.id);
     }
   }
@@ -343,14 +347,14 @@ export class EmployeeListElement extends LitElement {
       <table>
         <thead>
           <tr>
-            <th>${localization.t('employeeList.firstName')}</th>
-            <th>${localization.t('employeeList.lastName')}</th>
-            <th>${localization.t('employeeList.employmentDate')}</th>
-            <th>${localization.t('employeeList.birthDate')}</th>
-            <th>${localization.t('employeeList.phone')}</th>
-            <th>${localization.t('employeeList.email')}</th>
-            <th>${localization.t('employeeList.department')}</th>
-            <th>${localization.t('employeeList.actions')}</th>
+            <th>${localization.t("employeeList.firstName")}</th>
+            <th>${localization.t("employeeList.lastName")}</th>
+            <th>${localization.t("employeeList.employmentDate")}</th>
+            <th>${localization.t("employeeList.birthDate")}</th>
+            <th>${localization.t("employeeList.phone")}</th>
+            <th>${localization.t("employeeList.email")}</th>
+            <th>${localization.t("employeeList.department")}</th>
+            <th>${localization.t("employeeList.actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -375,8 +379,8 @@ export class EmployeeListElement extends LitElement {
           (page) => html`
             <button
               class="page-button ${page === this.currentPage
-                ? 'page-button--selected'
-                : ''}"
+                ? "page-button--selected"
+                : ""}"
               @click=${() => {
                 this.currentPage = page;
                 this.requestUpdate();
@@ -403,7 +407,7 @@ export class EmployeeListElement extends LitElement {
 
     return html`
       <div class="list-container">
-        ${this.displayMode === 'table'
+        ${this.displayMode === "table"
           ? this._renderTableView(paginatedData)
           : this._renderListView(paginatedData)}
         ${this._renderPagination(pageNumbers)}
@@ -413,4 +417,4 @@ export class EmployeeListElement extends LitElement {
   }
 }
 
-window.customElements.define('employee-list', EmployeeListElement);
+window.customElements.define("employee-list", EmployeeListElement);

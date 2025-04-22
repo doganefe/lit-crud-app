@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit";
-import { localization } from "../constants/localization";
+import { localization } from "../utils/localization";
 import "../components/EmployeeList/EmployeeList";
 import "../components/CustomNavbar/CustomNavbar";
 

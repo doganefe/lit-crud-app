@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
 import { initRouter } from "./router.js"; // Adjust the path as necessary
 import "./components/CustomNavbar/CustomNavbar.js"; // Ensure this file exists
-import "./constants/store.js";
+import "./store/index.js";
 
 export class MyElement extends LitElement {
   static get properties() {

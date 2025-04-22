@@ -84,6 +84,7 @@ describe("my-element", () => {
     const surnameInput = addPage.shadowRoot.getElementById("lastName");
     const emailInput = addPage.shadowRoot.getElementById("email");
     const phoneInput = addPage.shadowRoot.getElementById("phoneNumber");
+    const departmentInput = addPage.shadowRoot.getElementById("department");
 
     const submitBtn = addPage.shadowRoot.querySelector("#submit-btn");
 
@@ -91,6 +92,7 @@ describe("my-element", () => {
     surnameInput.value = "Doe";
     emailInput.value = "doganefe@yahoo.com";
     phoneInput.value = "+905425089494";
+    departmentInput.value = "Tech";
 
     assert.equal(form.checkValidity(), true);
 

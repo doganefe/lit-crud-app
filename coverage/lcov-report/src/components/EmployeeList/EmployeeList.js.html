@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.83% </span>
+                <span class="strong">97.85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>407/416</span>
+                <span class='fraction'>411/420</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.83% </span>
+                <span class="strong">97.85% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>407/416</span>
+                <span class='fraction'>411/420</span>
             </div>
         
             
@@ -479,7 +479,15 @@
 <a name='L414'></a><a href='#L414'>414</a>
 <a name='L415'></a><a href='#L415'>415</a>
 <a name='L416'></a><a href='#L416'>416</a>
-<a name='L417'></a><a href='#L417'>417</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L417'></a><a href='#L417'>417</a>
+<a name='L418'></a><a href='#L418'>418</a>
+<a name='L419'></a><a href='#L419'>419</a>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -895,11 +903,15 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {LitElement, html, css} from 'lit';
-import {employeeStore} from '../../constants/store';
-import {localization} from '../../constants/localization';
-import {paginate, getTotalPages, getPageNumbers} from '../../utils/pagination';
-import {Router} from '@vaadin/router';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { LitElement, html, css } from "lit";
+import { employeeStore } from "../../store";
+import { localization } from "../../utils/localization";
+import {
+  paginate,
+  getTotalPages,
+  getPageNumbers,
+} from "../../utils/pagination";
+import { Router } from "@vaadin/router";
 &nbsp;
 export class EmployeeListElement extends LitElement {
   static get styles() {
@@ -908,7 +920,7 @@ export class EmployeeListElement extends LitElement {
         display: block;
         --ing-orange: #fe6c10;
         background-color: #ffffff;
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
       }
 &nbsp;
       .list-container {
@@ -1093,10 +1105,10 @@ export class EmployeeListElement extends LitElement {
 &nbsp;
   static get properties() {
     return {
-      currentPage: {type: Number},
-      employees: {type: Array},
-      lang: {type: String},
-      displayMode: {type: String, reflect: true},
+      currentPage: { type: Number },
+      employees: { type: Array },
+      lang: { type: String },
+      displayMode: { type: String, reflect: true },
     };
   }
 &nbsp;
@@ -1146,14 +1158,14 @@ export class EmployeeListElement extends LitElement {
             name="edit-btn"
             class="icon-button edit-button"
             @click=${() =&gt; this._handleEdit(row)}
-            title="${localization.t('employeeList.edit')}"
+            title="${localization.t("employeeList.edit")}"
           &gt;
             ✏️
           &lt;/button&gt;
           &lt;button
             class="icon-button delete-button"
             @click=${() =&gt; this._handleDelete(row)}
-            title="${localization.t('employeeList.delete')}"
+            title="${localization.t("employeeList.delete")}"
           &gt;
             🗑️
           &lt;/button&gt;
@@ -1173,14 +1185,14 @@ export class EmployeeListElement extends LitElement {
             &lt;button
               class="icon-button edit-button"
               @click=${() =&gt; this._handleEdit(employee)}
-              title="${localization.t('employeeList.edit')}"
+              title="${localization.t("employeeList.edit")}"
             &gt;
               ✏️
             &lt;/button&gt;
             &lt;button
               class="icon-button delete-button"
               @click=${() =&gt; this._handleDelete(employee)}
-              title="${localization.t('employeeList.delete')}"
+              title="${localization.t("employeeList.delete")}"
             &gt;
               🗑️
             &lt;/button&gt;
@@ -1189,31 +1201,31 @@ export class EmployeeListElement extends LitElement {
         &lt;div class="list-item-details"&gt;
           &lt;div&gt;
             &lt;div class="list-item-label"&gt;
-              ${localization.t('employeeList.employmentDate')}
+              ${localization.t("employeeList.employmentDate")}
             &lt;/div&gt;
             &lt;div class="list-item-value"&gt;${employee.employmentDate}&lt;/div&gt;
           &lt;/div&gt;
           &lt;div&gt;
             &lt;div class="list-item-label"&gt;
-              ${localization.t('employeeList.birthDate')}
+              ${localization.t("employeeList.birthDate")}
             &lt;/div&gt;
             &lt;div class="list-item-value"&gt;${employee.birthDate}&lt;/div&gt;
           &lt;/div&gt;
           &lt;div&gt;
             &lt;div class="list-item-label"&gt;
-              ${localization.t('employeeList.phone')}
+              ${localization.t("employeeList.phone")}
             &lt;/div&gt;
             &lt;div class="list-item-value"&gt;${employee.phoneNumber}&lt;/div&gt;
           &lt;/div&gt;
           &lt;div&gt;
             &lt;div class="list-item-label"&gt;
-              ${localization.t('employeeList.email')}
+              ${localization.t("employeeList.email")}
             &lt;/div&gt;
             &lt;div class="list-item-value"&gt;${employee.email}&lt;/div&gt;
           &lt;/div&gt;
           &lt;div&gt;
             &lt;div class="list-item-label"&gt;
-              ${localization.t('employeeList.department')}
+              ${localization.t("employeeList.department")}
             &lt;/div&gt;
             &lt;div class="list-item-value"&gt;${employee.department}&lt;/div&gt;
           &lt;/div&gt;
@@ -1224,13 +1236,13 @@ export class EmployeeListElement extends LitElement {
 &nbsp;
   _handleEdit(employee) {
     Router.go({
-      pathname: '/edit-employee',
-      search: '?id=' + employee.id,
+      pathname: "/edit-employee",
+      search: "?id=" + employee.id,
     });
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  _handleDelete(employee) {</span>
-<span class="cstat-no" title="statement not covered" >    if (confirm(localization.t('employeeList.deleteConfirm'))) {</span>
+<span class="cstat-no" title="statement not covered" >    if (confirm(localization.t("employeeList.deleteConfirm"))) {</span>
 <span class="cstat-no" title="statement not covered" >      employeeStore.deleteEmployee(employee.id);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
@@ -1240,14 +1252,14 @@ export class EmployeeListElement extends LitElement {
       &lt;table&gt;
         &lt;thead&gt;
           &lt;tr&gt;
-            &lt;th&gt;${localization.t('employeeList.firstName')}&lt;/th&gt;
-            &lt;th&gt;${localization.t('employeeList.lastName')}&lt;/th&gt;
-            &lt;th&gt;${localization.t('employeeList.employmentDate')}&lt;/th&gt;
-            &lt;th&gt;${localization.t('employeeList.birthDate')}&lt;/th&gt;
-            &lt;th&gt;${localization.t('employeeList.phone')}&lt;/th&gt;
-            &lt;th&gt;${localization.t('employeeList.email')}&lt;/th&gt;
-            &lt;th&gt;${localization.t('employeeList.department')}&lt;/th&gt;
-            &lt;th&gt;${localization.t('employeeList.actions')}&lt;/th&gt;
+            &lt;th&gt;${localization.t("employeeList.firstName")}&lt;/th&gt;
+            &lt;th&gt;${localization.t("employeeList.lastName")}&lt;/th&gt;
+            &lt;th&gt;${localization.t("employeeList.employmentDate")}&lt;/th&gt;
+            &lt;th&gt;${localization.t("employeeList.birthDate")}&lt;/th&gt;
+            &lt;th&gt;${localization.t("employeeList.phone")}&lt;/th&gt;
+            &lt;th&gt;${localization.t("employeeList.email")}&lt;/th&gt;
+            &lt;th&gt;${localization.t("employeeList.department")}&lt;/th&gt;
+            &lt;th&gt;${localization.t("employeeList.actions")}&lt;/th&gt;
           &lt;/tr&gt;
         &lt;/thead&gt;
         &lt;tbody&gt;
@@ -1272,8 +1284,8 @@ export class EmployeeListElement extends LitElement {
           (page) =&gt; html`
             &lt;button
               class="page-button ${page === this.currentPage
-                ? 'page-button--selected'
-<span class="branch-0 cbranch-no" title="branch not covered" >                : ''}</span>"
+                ? "page-button--selected"
+<span class="branch-0 cbranch-no" title="branch not covered" >                : ""}</span>"
               @click=${() =&gt; {
 <span class="cstat-no" title="statement not covered" >                this.currentPage = page;</span>
 <span class="cstat-no" title="statement not covered" >                this.requestUpdate();</span>
@@ -1300,7 +1312,7 @@ export class EmployeeListElement extends LitElement {
 &nbsp;
     return html`
       &lt;div class="list-container"&gt;
-        ${this.displayMode === 'table'
+        ${this.displayMode === "table"
           ? this._renderTableView(paginatedData)
           : this._renderListView(paginatedData)}
         ${this._renderPagination(pageNumbers)}
@@ -1310,7 +1322,7 @@ export class EmployeeListElement extends LitElement {
   }
 }
 &nbsp;
-window.customElements.define('employee-list', EmployeeListElement);
+window.customElements.define("employee-list", EmployeeListElement);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -1318,7 +1330,7 @@ window.customElements.define('employee-list', EmployeeListElement);
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-18T02:56:01.211Z
+                at 2025-04-22T05:53:59.767Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -1,5 +1,5 @@
-import {LitElement, html, css} from 'lit';
-import {localization} from '../../constants/localization';
+import { LitElement, html, css } from "lit";
+import { localization } from "../../utils/localization";
 
 export class CustomNavbarElement extends LitElement {
   static get styles() {
@@ -86,7 +86,7 @@ export class CustomNavbarElement extends LitElement {
 
   static get properties() {
     return {
-      lang: {type: String},
+      lang: { type: String },
     };
   }
 
@@ -128,24 +128,24 @@ export class CustomNavbarElement extends LitElement {
         <div class="nav-content">
           <div class="nav-links">
             <a href="/" id="home-btn" class="nav-link">
-              ${localization.t('navbar.home')}
+              ${localization.t("navbar.home")}
             </a>
             <a href="/add" id="add-btn" class="nav-link">
-              ${localization.t('navbar.addEmployee')}
+              ${localization.t("navbar.addEmployee")}
             </a>
           </div>
           <div class="language-switcher">
             <button
               id="lang-btn-en"
-              class="language-button ${this.lang === 'en' ? 'active' : ''}"
-              @click=${() => this._handleLanguageChange('en')}
+              class="language-button ${this.lang === "en" ? "active" : ""}"
+              @click=${() => this._handleLanguageChange("en")}
             >
               EN
             </button>
             <button
               id="lang-btn-tr"
-              class="language-button ${this.lang === 'tr' ? 'active' : ''}"
-              @click=${() => this._handleLanguageChange('tr')}
+              class="language-button ${this.lang === "tr" ? "active" : ""}"
+              @click=${() => this._handleLanguageChange("tr")}
             >
               TR
             </button>
@@ -156,4 +156,4 @@ export class CustomNavbarElement extends LitElement {
   }
 }
 
-window.customElements.define('custom-navbar', CustomNavbarElement);
+window.customElements.define("custom-navbar", CustomNavbarElement);

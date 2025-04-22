@@ -1,7 +1,3 @@
-import {createContext} from '@lit/context';
-
-export const storeContext = createContext('store');
-
 class EmployeeStore {
   constructor() {
     this._employees = this.loadEmployees();
@@ -9,12 +5,12 @@ class EmployeeStore {
   }
 
   loadEmployees() {
-    const stored = localStorage.getItem('employees');
+    const stored = localStorage.getItem("employees");
     return stored ? JSON.parse(stored) : [];
   }
 
   saveEmployees() {
-    localStorage.setItem('employees', JSON.stringify(this._employees));
+    localStorage.setItem("employees", JSON.stringify(this._employees));
   }
 
   get employees() {

@@ -1,6 +1,6 @@
 import { LitElement, html, css } from "lit";
-import { localization } from "../constants/localization";
-import { employeeStore } from "../constants/store";
+import { localization } from "../utils/localization";
+import { employeeStore } from "../store";
 import { Router } from "@vaadin/router";
 import { validateField, validateForm } from "../utils/validation";
 import { departments } from "../constants";
